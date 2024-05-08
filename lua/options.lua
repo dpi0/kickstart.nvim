@@ -16,3 +16,6 @@ vim.g.neovide_padding_bottom = 0
 vim.g.neovide_padding_right = 0
 vim.g.neovide_padding_left = 0
 -- vim.g.neovide_transparency = 0.5
+
+-- vim.api.nvim_set_hl(0, 'NoicePopupBorder', { fg = '#FFFFFF' }) -- white border color
+-- vim.api.nvim_set_hl(0, 'NoiceCmdlinePopupBorder', { fg = '#FFFFFF', bg = 'NONE' })

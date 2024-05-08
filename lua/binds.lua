@@ -17,7 +17,6 @@ vim.keymap.set('n', '<C-q>', ':q<CR>', { silent = true })
 
 -- PLUGINS
 vim.keymap.set('n', '<A-t>', ':NvimTreeToggle<CR>', { silent = true })
-
 vim.keymap.set('n', '<C-M-a>', ':Alpha<CR>', { silent = true })
 
 -- BUFFERS/TAB
@@ -72,3 +71,5 @@ vim.api.nvim_set_keymap('n', '<A-r>', [[<cmd>lua require("persistence").load({ l
 
 -- stop Persistence => session won't be saved on exit
 vim.api.nvim_set_keymap('n', '<leader>qk', [[<cmd>lua require("persistence").stop()<cr>]], {})
+
+-- THEME SWITCHER
