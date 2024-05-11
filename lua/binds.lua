@@ -6,14 +6,28 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
 vim.keymap.set('n', '<leader>Y', [["+Y]])
 vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
-vim.keymap.set('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set('n', '<a-s-w>', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true })
+
+-- RESIZE
+vim.keymap.set('n', '<C-a-l>', ':vertical resize -2<CR>')
+vim.keymap.set('n', '<C-a-j>', ':resize +2<CR>')
+vim.keymap.set('n', '<C-a-k>', ':resize -2<CR>')
+vim.keymap.set('n', '<C-a-h>', ':vertical resize +2<CR>')
+-- vim.keymap.set('i', '<C-a-l>', ':vertical resize -2<CR>')
+-- vim.keymap.set('i', '<C-a-j>', ':resize +2<CR>')
+-- vim.keymap.set('i', '<C-a-k>', ':resize -1<CR>')
+-- vim.keymap.set('i', '<C-a-h>', ':vertical resize +2<CR>')kk
+
+-- COMMENT
+-- vim.keymap.set('n', '<A-c>', api.call('comment.linewise.current', 'g@$'), { expr = true, desc = 'Comment current line' })
 
 -- FILE
 vim.keymap.set('n', '<C-s>', ':w<CR>', { silent = true })
 vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { silent = true })
-vim.keymap.set('n', '<C-M-q>', ':wqa<CR>', { silent = true })
-vim.keymap.set('n', '<C-q>', ':q<CR>', { silent = true })
+vim.keymap.set('n', '<leader>q ', ':wqa<CR>', { silent = true })
+vim.keymap.set('n', '<a-q>', ':q<CR>', { silent = true })
+vim.keymap.set('n', '<C-a>', 'ggVG')
 
 -- PLUGINS
 vim.keymap.set('n', '<A-t>', ':NvimTreeToggle<CR>', { silent = true })
@@ -22,8 +36,9 @@ vim.keymap.set('n', '<C-M-a>', ':Alpha<CR>', { silent = true })
 -- BUFFERS/TAB
 vim.keymap.set('n', '<Tab>', '<Cmd>BufferNext<CR>', { silent = true })
 vim.keymap.set('n', '<S-Tab>', '<Cmd>BufferPrevious<CR>', { silent = true })
-vim.keymap.set('n', '<C-S-w>', ':bd!<CR>', { silent = true })
-vim.keymap.set('n', '<C-S-t>', ':enew<CR>', { silent = true })
+vim.keymap.set('n', '<C-w>', '<Cmd>BufferClose<CR>', { silent = true })
+-- vim.keymap.set('n', '<C-S-t>', '<Cmd>BufferRestore<CR>', { silent = true })
+vim.keymap.set('n', '<C-t>', ':enew<CR>', { silent = true })
 vim.keymap.set('n', '<A-1>', ':BufferGoto 1<CR>', { silent = true })
 vim.keymap.set('n', '<A-2>', ':BufferGoto 2<CR>', { silent = true })
 vim.keymap.set('n', '<A-3>', ':BufferGoto 3<CR>', { silent = true })
@@ -71,5 +86,3 @@ vim.api.nvim_set_keymap('n', '<A-r>', [[<cmd>lua require("persistence").load({ l
 
 -- stop Persistence => session won't be saved on exit
 vim.api.nvim_set_keymap('n', '<leader>qk', [[<cmd>lua require("persistence").stop()<cr>]], {})
-
--- THEME SWITCHER
