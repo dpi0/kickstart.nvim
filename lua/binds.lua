@@ -25,8 +25,8 @@ vim.keymap.set('n', '<C-a-h>', ':vertical resize +2<CR>')
 -- FILE
 vim.keymap.set('n', '<C-s>', ':w<CR>', { silent = true })
 vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { silent = true })
-vim.keymap.set('n', '<leader>q ', ':wqa<CR>', { silent = true })
-vim.keymap.set('n', '<a-q>', ':q<CR>', { silent = true })
+vim.keymap.set('n', '<C-q> ', ':wqa<CR>', { silent = true })
+vim.keymap.set('n', '<A-q>', ':q<CR>', { silent = true })
 vim.keymap.set('n', '<C-a>', 'ggVG')
 
 -- PLUGINS
@@ -60,6 +60,7 @@ vim.keymap.set('n', '<C-S-j>', ':sp<CR>', { silent = true })
 vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
 vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 vim.keymap.set('t', '<A-S-i>', '<C-\\><C-n><CMD>lua require("FTerm").exit()<CR>')
+
 
 -- LINES UP/DOWN
 vim.keymap.set('n', '<A-Up>', ':m .-2<CR>==', { noremap = true, silent = true })
