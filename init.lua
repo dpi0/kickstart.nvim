@@ -1,4 +1,4 @@
---[[
+--[[init
 
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
@@ -94,7 +94,6 @@ require 'binds'
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
@@ -249,9 +248,9 @@ require('lazy').setup({
     opts = { ---LHS of operator-pending mappings in NORMAL and VISUAL mode
       toggler = {
         ---Line-comment toggle keymap
-        line = '<M-c>',
+        line = '<A-c>',
         ---Block-comment toggle keymap
-        block = 'gbc',
+        block = '<A-S-c>',
       },
       opleader = {
         ---Line-comment keymap

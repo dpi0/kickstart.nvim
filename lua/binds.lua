@@ -1,6 +1,8 @@
 -- NICE
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', '<S-d>', 'dd')
+
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
@@ -31,7 +33,15 @@ vim.keymap.set('n', '<C-a>', 'ggVG')
 
 -- PLUGINS
 vim.keymap.set('n', '<A-t>', ':NvimTreeToggle<CR>', { silent = true })
-vim.keymap.set('n', '<C-M-a>', ':Alpha<CR>', { silent = true })
+vim.keymap.set('n', '<C-A-a>', ':Alpha<CR>', { silent = true })
+
+-- ZOXIDE
+vim.keymap.set('n', '<A-d>', ':Telescope zoxide list<CR>', { silent = true })
+
+-- TELESCOPE FILE BROWSER
+vim.keymap.set('n', '<A-S-d>', ':Telescope file_browser<CR>')
+-- open file_browser with the path of the current buffer
+vim.keymap.set('n', '<space>fb', ':Telescope file_browser path=%:p:h select_buffer=true<CR>')
 
 -- BUFFERS/TAB
 vim.keymap.set('n', '<Tab>', '<Cmd>BufferNext<CR>', { silent = true })
@@ -39,18 +49,18 @@ vim.keymap.set('n', '<S-Tab>', '<Cmd>BufferPrevious<CR>', { silent = true })
 vim.keymap.set('n', '<C-w>', '<Cmd>BufferClose<CR>', { silent = true })
 -- vim.keymap.set('n', '<C-S-t>', '<Cmd>BufferRestore<CR>', { silent = true })
 vim.keymap.set('n', '<C-t>', ':enew<CR>', { silent = true })
-vim.keymap.set('n', '<A-1>', ':BufferGoto 1<CR>', { silent = true })
-vim.keymap.set('n', '<A-2>', ':BufferGoto 2<CR>', { silent = true })
-vim.keymap.set('n', '<A-3>', ':BufferGoto 3<CR>', { silent = true })
-vim.keymap.set('n', '<A-4>', ':BufferGoto 4<CR>', { silent = true })
-vim.keymap.set('n', '<A-5>', ':BufferGoto 5<CR>', { silent = true })
-vim.keymap.set('n', '<A-6>', ':BufferGoto 6<CR>', { silent = true })
-vim.keymap.set('n', '<A-7>', ':BufferGoto 7<CR>', { silent = true })
-vim.keymap.set('n', '<A-8>', ':BufferGoto 8<CR>', { silent = true })
-vim.keymap.set('n', '<A-9>', ':BufferGoto 9<CR>', { silent = true })
-vim.keymap.set('n', '<A-0>', ':BufferLast<CR>', { silent = true })
+vim.keymap.set('n', '<C-1>', ':BufferGoto 1<CR>', { silent = true })
+vim.keymap.set('n', '<C-2>', ':BufferGoto 2<CR>', { silent = true })
+vim.keymap.set('n', '<C-3>', ':BufferGoto 3<CR>', { silent = true })
+vim.keymap.set('n', '<C-4>', ':BufferGoto 4<CR>', { silent = true })
+vim.keymap.set('n', '<C-5>', ':BufferGoto 5<CR>', { silent = true })
+vim.keymap.set('n', '<C-6>', ':BufferGoto 6<CR>', { silent = true })
+vim.keymap.set('n', '<C-7>', ':BufferGoto 7<CR>', { silent = true })
+vim.keymap.set('n', '<C-8>', ':BufferGoto 8<CR>', { silent = true })
+vim.keymap.set('n', '<C-9>', ':BufferGoto 9<CR>', { silent = true })
+vim.keymap.set('n', '<C-0>', ':BufferLast<CR>', { silent = true })
 -- vim.keymap.set('n', 'a<.set(C-S-p>', ':BufferPin<CR>', { silent = true })
--- vim.keymap.set('n', 'a<.set(C-S-M-t>', ':BufferRestore<CR>', { silent = true })
+-- vim.keymap.set('n', 'a<.set(C-S-A-t>', ':BufferRestore<CR>', { silent = true })
 
 -- SPLITS
 vim.keymap.set('n', '<C-S-l>', ':vsp<CR>', { silent = true })
@@ -60,7 +70,7 @@ vim.keymap.set('n', '<C-S-j>', ':sp<CR>', { silent = true })
 vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
 vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 vim.keymap.set('t', '<A-S-i>', '<C-\\><C-n><CMD>lua require("FTerm").exit()<CR>')
-
+vim.keymap.set('n', '<C-S-t>', ':vsp<CR>:terminal<CR>', { silent = true })
 
 -- LINES UP/DOWN
 vim.keymap.set('n', '<A-Up>', ':m .-2<CR>==', { noremap = true, silent = true })
@@ -76,7 +86,7 @@ vim.keymap.set('n', '<leader>h', ':lua require("harpoon.ui").toggle_quick_menu()
 vim.keymap.set('n', '<leader>hm', ':lua require("harpoon.mark").add_file()<CR>')
 
 -- MARKDOWN
-vim.keymap.set('n', '<leader>p', ':MarkdownPreview<CR>')
+vim.keymap.set('n', '<A-p>', ':MarkdownPreviewToggle<CR>', { noremap = true, silent = true })
 
 -- SESSION SAVE/PERSISTENCE
 -- restore the session for the current directory
