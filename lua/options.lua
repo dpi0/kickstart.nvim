@@ -3,7 +3,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 --- EDITOR
-vim.cmd 'set textwidth=80'
+-- vim.cmd 'set textwidth=80'
 vim.cmd 'set colorcolumn=+1'
 
 --- NEOVIDE

@@ -3,6 +3,8 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<S-d>', 'dd')
 
+vim.keymap.set('n', '<C-A-t>', ':set textwidth=80<CR>', { silent = true })
+
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
@@ -82,8 +84,8 @@ vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { noremap = true, silent = true })
 vim.keymap.set('n', '<A-u>', vim.cmd.UndotreeToggle)
 
 -- HARPOON
-vim.keymap.set('n', '<leader>h', ':lua require("harpoon.ui").toggle_quick_menu()<CR>')
-vim.keymap.set('n', '<leader>hm', ':lua require("harpoon.mark").add_file()<CR>')
+-- vim.keymap.set('n', '<leader>h', ':lua require("harpoon.ui").toggle_quick_menu()<CR>')
+-- vim.keymap.set('n', '<leader>hm', ':lua require("harpoon.mark").add_file()<CR>')
 
 -- MARKDOWN
 vim.keymap.set('n', '<A-p>', ':MarkdownPreviewToggle<CR>', { noremap = true, silent = true })
