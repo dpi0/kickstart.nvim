@@ -75,14 +75,20 @@ vim.keymap.set('t', '<A-S-i>', '<C-\\><C-n><CMD>lua require("FTerm").exit()<CR>'
 vim.keymap.set('n', '<C-S-t>', ':vsp<CR>:terminal<CR>', { silent = true })
 
 -- LINES UP/DOWN
+-- Move lines up
 vim.keymap.set('n', '<A-Up>', ':m .-2<CR>==', { noremap = true, silent = true })
 vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { noremap = true, silent = true })
+vim.keymap.set('v', '<A-Up>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+
+-- Move lines down
 vim.keymap.set('n', '<A-Down>', ':m .+1<CR>==', { noremap = true, silent = true })
 vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { noremap = true, silent = true })
+vim.keymap.set('v', '<A-Down>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 
 -- UNDOTREE
 vim.keymap.set('n', '<A-u>', vim.cmd.UndotreeToggle)
-
 -- HARPOON
 -- vim.keymap.set('n', '<leader>h', ':lua require("harpoon.ui").toggle_quick_menu()<CR>')
 -- vim.keymap.set('n', '<leader>hm', ':lua require("harpoon.mark").add_file()<CR>')
