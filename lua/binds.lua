@@ -105,3 +105,8 @@ vim.api.nvim_set_keymap('n', '<A-r>', [[<cmd>lua require("persistence").load({ l
 
 -- stop Persistence => session won't be saved on exit
 vim.api.nvim_set_keymap('n', '<leader>qk', [[<cmd>lua require("persistence").stop()<cr>]], {})
+
+-- NVIM SPECTRE
+vim.keymap.set('n', '<A-m>', '<cmd>lua require("spectre").toggle()<CR>', {
+  desc = 'Toggle Spectre',
+})
