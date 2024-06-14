@@ -29,8 +29,9 @@ vim.keymap.set('n', '<C-a-h>', ':vertical resize +2<CR>')
 -- FILE
 vim.keymap.set('n', '<C-s>', ':w<CR>', { silent = true })
 vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { silent = true })
-vim.keymap.set('n', '<C-q> ', ':wqa<CR>', { silent = true })
+vim.keymap.set('n', '<C-q>', ':wqa<CR>', { silent = true })
 vim.keymap.set('n', '<A-q>', ':q<CR>', { silent = true })
+vim.keymap.set('n', '<A-q>', ':q!<CR>', { silent = true })
 vim.keymap.set('n', '<C-a>', 'ggVG')
 
 -- PLUGINS
@@ -110,3 +111,45 @@ vim.api.nvim_set_keymap('n', '<leader>qk', [[<cmd>lua require("persistence").sto
 vim.keymap.set('n', '<A-m>', '<cmd>lua require("spectre").toggle()<CR>', {
   desc = 'Toggle Spectre',
 })
+
+-- MARKDOWN BOLD AND ITALIC
+vim.keymap.set('i', '<C-b>', '****<Left><Left>')
+vim.keymap.set('i', '<C-y>', '**<Left>')
+
+-- Function to surround word under cursor with a given prefix and suffix
+local function surround_word(prefix, suffix)
+  -- Save the current cursor position
+  local pos = vim.api.nvim_win_get_cursor(0)
+  -- Get the word under the cursor
+  local word = vim.fn.expand '<cword>'
+  -- Replace the word with the formatted word
+  vim.cmd('normal! ciw' .. prefix .. word .. suffix)
+  -- Restore the cursor position
+  vim.api.nvim_win_set_cursor(0, pos)
+end
+
+-- Mapping for bold
+vim.keymap.set('n', '<C-b>', function()
+  surround_word('**', '**')
+end, { noremap = true, silent = true })
+
+-- Mapping for italics
+vim.keymap.set('n', '<C-y>', function()
+  surround_word('*', '*')
+end, { noremap = true, silent = true })
+
+-- WRITE FILENAME
+vim.keymap.set({ 'n', 'i' }, '<C-e>', function()
+  -- Get the current directory
+  local current_dir = vim.fn.getcwd()
+  -- Prompt the user to enter the filename with the absolute path, defaulting to the current directory
+  local filename = vim.fn.input('Save as: ', current_dir .. '/', 'file')
+  -- Save the current buffer with the specified filename
+  if filename ~= '' then
+    vim.cmd('write ' .. filename)
+    -- Optionally set the buffer name to the new filename
+    vim.api.nvim_buf_set_name(0, filename)
+  else
+    print 'Save aborted: no filename provided.'
+  end
+end, { noremap = true, silent = true })
