@@ -1,5 +1,7 @@
 -- NICE
-vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('i', '<A-BS>', '<C-w>', { noremap = true, silent = true })
+vim.keymap.set('n', '<A-BS>', 'db', { noremap = true, silent = true })
+
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', '<S-d>', 'dd')
 
@@ -94,7 +96,7 @@ vim.keymap.set('n', '<A-u>', vim.cmd.UndotreeToggle)
 -- vim.keymap.set('n', '<leader>h', ':lua require("harpoon.ui").toggle_quick_menu()<CR>')
 -- vim.keymap.set('n', '<leader>hm', ':lua require("harpoon.mark").add_file()<CR>')
 
--- MARKDOWN
+-- MARKDOWN PREVIEW
 vim.keymap.set('n', '<A-p>', ':MarkdownPreviewToggle<CR>', { noremap = true, silent = true })
 
 -- SESSION SAVE/PERSISTENCE
@@ -153,3 +155,21 @@ vim.keymap.set({ 'n', 'i' }, '<C-e>', function()
     print 'Save aborted: no filename provided.'
   end
 end, { noremap = true, silent = true })
+
+local function duplicate_line_below()
+  local line = vim.api.nvim_get_current_line()
+  local lnum = vim.api.nvim_win_get_cursor(0)[1]
+  vim.api.nvim_buf_set_lines(0, lnum, lnum, false, { line })
+end
+
+-- Function to duplicate the current line above
+local function duplicate_line_above()
+  local line = vim.api.nvim_get_current_line()
+  local lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
+  vim.api.nvim_buf_set_lines(0, lnum, lnum, false, { line })
+end
+
+-- Keybinding for Ctrl+Alt+Down to duplicate the current line below
+vim.keymap.set('n', '<S-f>', duplicate_line_below, { noremap = true, silent = true })
+-- Keybinding for Ctrl+Alt+Up to duplicate the current line above
+vim.keymap.set('n', '<C-A-Up>', duplicate_line_above, { noremap = true, silent = true })
