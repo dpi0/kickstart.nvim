@@ -24,7 +24,7 @@ return {
     dashboard.section.buttons.val = {
       dashboard.button('r', '󱑍  > Recent files', ':Telescope oldfiles<CR>'),
       dashboard.button('n', '  > New file', ':ene <BAR> startinsert <CR>'),
-      dashboard.button('f', '  > Find', ':cd /work | Telescope find_files<CR>'),
+      dashboard.button('f', '  > Find', ':cd /data | Telescope find_files<CR>'),
       dashboard.button('g', '󰗧 ' .. ' > Grep', ':Telescope live_grep <CR>'),
       dashboard.button('t', '󰐅 ' .. ' > Tree', ':NvimTreeToggle <CR>'),
       dashboard.button('v', '󰦛  > Restore session', '<cmd>lua require("persistence").load({ last = true })<CR>'),
