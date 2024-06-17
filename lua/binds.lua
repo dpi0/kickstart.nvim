@@ -1,4 +1,5 @@
 -- NICE
+vim.keymap.set('n', 'U', ':redo<CR>', { noremap = true })
 vim.keymap.set('i', '<A-BS>', '<C-w>', { noremap = true, silent = true })
 vim.keymap.set('n', '<A-BS>', 'db', { noremap = true, silent = true })
 
@@ -110,7 +111,7 @@ vim.api.nvim_set_keymap('n', '<A-r>', [[<cmd>lua require("persistence").load({ l
 vim.api.nvim_set_keymap('n', '<leader>qk', [[<cmd>lua require("persistence").stop()<cr>]], {})
 
 -- NVIM SPECTRE
-vim.keymap.set('n', '<A-m>', '<cmd>lua require("spectre").toggle()<CR>', {
+vim.keymap.set('n', '<A-C-f>', '<cmd>lua require("spectre").toggle()<CR>', {
   desc = 'Toggle Spectre',
 })
 
@@ -156,20 +157,41 @@ vim.keymap.set({ 'n', 'i' }, '<C-e>', function()
   end
 end, { noremap = true, silent = true })
 
+-- Function to duplicate the current line below
 local function duplicate_line_below()
   local line = vim.api.nvim_get_current_line()
   local lnum = vim.api.nvim_win_get_cursor(0)[1]
   vim.api.nvim_buf_set_lines(0, lnum, lnum, false, { line })
 end
 
--- Function to duplicate the current line above
-local function duplicate_line_above()
-  local line = vim.api.nvim_get_current_line()
-  local lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
-  vim.api.nvim_buf_set_lines(0, lnum, lnum, false, { line })
-end
+-- -- Function to duplicate the current line above
+-- local function duplicate_line_above()
+--   local line = vim.api.nvim_get_current_line()
+--   local lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
+--   vim.api.nvim_buf_set_lines(0, lnum, lnum, false, { line })
+-- end
 
 -- Keybinding for Ctrl+Alt+Down to duplicate the current line below
 vim.keymap.set('n', '<S-f>', duplicate_line_below, { noremap = true, silent = true })
+
 -- Keybinding for Ctrl+Alt+Up to duplicate the current line above
-vim.keymap.set('n', '<C-A-Up>', duplicate_line_above, { noremap = true, silent = true })
+-- vim.keymap.set('n', '<C-A-Up>', duplicate_line_above, { noremap = true, silent = true })
+
+-- Keybinding for indenting a visual block using Tab
+vim.keymap.set('v', '<Tab>', '>gv', { noremap = true, silent = true })
+
+-- Keybinding for back-indenting a visual block using Shift+Tab
+vim.keymap.set('v', '<S-Tab>', '<gv', { noremap = true, silent = true })
+
+-- vim visual multi binds
+vim.g.VM_maps = {
+  ['Find Under'] = '<C-n>',
+  ['Select All'] = '<A-S-n>',
+  ['Add Cursor Down'] = '<A-s-j>',
+  ['Add Cursor Up'] = '<A-s-k>',
+  ['Add Cursor At Pos'] = '<C-S-LeftMouse>',
+  -- ['Visual Add'] = 'gb', -- Visual Mode
+  ['Start Regex Search'] = 'g/', -- Visual Mode
+}
+
+vim.keymap.set('n', '""', 'ysiw', { noremap = true })

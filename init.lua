@@ -250,11 +250,11 @@ require('lazy').setup({
         ---Line-comment toggle keymap
         line = '<A-c>',
         ---Block-comment toggle keymap
-        block = '<A-S-c>',
+        -- block = '<A-S-c>',
       },
       opleader = {
         ---Line-comment keymap
-        line = 'gc',
+        line = '<A-c>',
         ---Block-comment keymap
         block = 'gb',
       },
@@ -725,6 +725,7 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      -- 'octaltree/cmp-look',
     },
     config = function()
       -- See `:help cmp`
@@ -796,6 +797,15 @@ require('lazy').setup({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          -- {
+          --   name = 'look',
+          --   keyword_length = 2,
+          --   option = {
+          --     convert_case = true,
+          --     loud = true,
+          --     --dict = '/usr/share/dict/words'
+          --   },
+          -- },
         },
       }
     end,
