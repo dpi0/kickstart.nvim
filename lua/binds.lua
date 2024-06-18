@@ -131,14 +131,89 @@ local function surround_word(prefix, suffix)
   vim.api.nvim_win_set_cursor(0, pos)
 end
 
+-- Function to surround visually selected text with a given prefix and suffix
+function _G.surround_visual(prefix, suffix)
+  -- Get the start and end positions of the visual selection
+  local start_pos = vim.fn.getpos "'<"
+  local end_pos = vim.fn.getpos "'>"
+
+  -- Ensure start_pos is before end_pos
+  if start_pos[2] > end_pos[2] or (start_pos[2] == end_pos[2] and start_pos[3] > end_pos[3]) then
+    start_pos, end_pos = end_pos, start_pos
+  end
+
+  -- Get the text in the visual selection
+  local lines = vim.api.nvim_buf_get_lines(0, start_pos[2] - 1, end_pos[2], false)
+
+  -- If only one line is selected, surround the selected text
+  if #lines == 1 then
+    lines[1] = lines[1]:sub(1, start_pos[3] - 1) .. prefix .. lines[1]:sub(start_pos[3], end_pos[3]) .. suffix .. lines[1]:sub(end_pos[3] + 1)
+  else
+    -- If multiple lines are selected, surround each line with prefix and suffix
+    lines[1] = lines[1]:sub(1, start_pos[3] - 1) .. prefix .. lines[1]:sub(start_pos[3])
+    lines[#lines] = lines[#lines] .. suffix .. lines[#lines]:sub(end_pos[3] + 1)
+    for i = 2, #lines - 1 do
+      lines[i] = prefix .. lines[i] .. suffix
+    end
+  end
+
+  -- Set the modified lines back
+  vim.api.nvim_buf_set_lines(0, start_pos[2] - 1, end_pos[2], false, lines)
+
+  -- Reselect the visual area to restore the selection
+  vim.cmd 'normal! gv'
+end
+
+-- Example of mapping to surround visually selected text with quotes using Alt-w
+vim.api.nvim_set_keymap('v', '<A-w>', [[:lua surround_visual('"', '"')<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<A-S-b>', [[:lua surround_visual('(', ')')<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<A-C-b>', [[:lua surround_visual('**', '**')<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<A-C-[>', [[:lua surround_visual('[', ']')<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<A-C-S-{>', [[:lua surround_visual('{', '}')<CR>]], { noremap = true, silent = true })
+
 -- Mapping for bold
 vim.keymap.set('n', '<C-b>', function()
   surround_word('**', '**')
 end, { noremap = true, silent = true })
 
+-- mapping for highlighting
+vim.keymap.set('n', '<A-S-h>', function()
+  surround_word('{==', '==}')
+end, { noremap = true, silent = true })
+
+-- mapping for underline highlighting
+vim.keymap.set('n', '<A-S-u>', function()
+  surround_word('{++', '++}')
+end, { noremap = true, silent = true })
+
+-- mapping for delete highlighting
+vim.keymap.set('n', '<A-S-d>', function()
+  surround_word('{--', '--}')
+end, { noremap = true, silent = true })
+
+-- mapping for comments
+vim.keymap.set('n', '<A-S-c>', function()
+  surround_word('{>>', '<<}')
+end, { noremap = true, silent = true })
+
 -- Mapping for italics
 vim.keymap.set('n', '<C-y>', function()
   surround_word('*', '*')
+end, { noremap = true, silent = true })
+
+-- Mapping for surrounding with ()
+vim.keymap.set('n', '<A-b>', function()
+  surround_word('(', ')')
+end, { noremap = true, silent = true })
+
+-- Mapping for surrounding with []
+vim.keymap.set('n', '<A-[>', function()
+  surround_word('[', ']')
+end, { noremap = true, silent = true })
+
+-- Mapping for surrounding with {}
+vim.keymap.set('n', '<A-{>', function()
+  surround_word('{', '}')
 end, { noremap = true, silent = true })
 
 -- WRITE FILENAME
@@ -186,7 +261,7 @@ vim.keymap.set('v', '<S-Tab>', '<gv', { noremap = true, silent = true })
 -- vim visual multi binds
 vim.g.VM_maps = {
   ['Find Under'] = '<C-n>',
-  ['Select All'] = '<A-S-n>',
+  ['Select All'] = '<C-m>',
   ['Add Cursor Down'] = '<A-s-j>',
   ['Add Cursor Up'] = '<A-s-k>',
   ['Add Cursor At Pos'] = '<C-S-LeftMouse>',
@@ -194,4 +269,20 @@ vim.g.VM_maps = {
   ['Start Regex Search'] = 'g/', -- Visual Mode
 }
 
-vim.keymap.set('n', '""', 'ysiw', { noremap = true })
+-- Function to select the word under cursor
+local function select_word()
+  -- Move to the start of the word
+  vim.cmd 'normal! viw'
+end
+
+-- Function to select the word under cursor
+local function copy_word()
+  -- Move to the start of the word
+  vim.cmd 'normal! yiw'
+end
+
+-- Mapping for selecting the current word
+vim.keymap.set('n', '<A-v>', select_word, { noremap = true, silent = true })
+
+-- Mapping for copying the current word
+vim.keymap.set('n', '<A-y>', copy_word, { noremap = true, silent = true })
