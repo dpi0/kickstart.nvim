@@ -28,3 +28,24 @@ vim.api.nvim_create_autocmd('FileType', {
     end, { buffer = true, expr = true })
   end,
 })
+
+-- AUTO CLOSE ALL TERMINAL BUFFERS ON :qa
+-- Create an augroup for managing terminal buffer closure
+vim.api.nvim_create_augroup('TermClose', { clear = true })
+
+-- Set an autocmd for the QuitPre event to close all terminal buffers
+vim.api.nvim_create_autocmd('QuitPre', {
+  group = 'TermClose',
+  callback = function()
+    -- Get the list of all buffers
+    local bufs = vim.api.nvim_list_bufs()
+    -- Iterate through each buffer
+    for _, buf in ipairs(bufs) do
+      -- Check if the buffer is a terminal buffer using vim.bo[buf]
+      if vim.bo[buf].buftype == 'terminal' then
+        -- Forcefully delete the terminal buffer
+        vim.api.nvim_buf_delete(buf, { force = true })
+      end
+    end
+  end,
+})

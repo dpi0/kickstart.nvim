@@ -1,4 +1,6 @@
 -- NICE
+vim.keymap.set('n', 'E', '$')
+vim.keymap.set('n', 'B', '0')
 vim.keymap.set('n', 'U', ':redo<CR>', { noremap = true })
 vim.keymap.set('i', '<A-BS>', '<C-w>', { noremap = true, silent = true })
 vim.keymap.set('n', '<A-BS>', 'db', { noremap = true, silent = true })
@@ -14,7 +16,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
 vim.keymap.set('n', '<leader>Y', [["+Y]])
 vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
 vim.keymap.set('n', '<a-s-w>', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true })
+vim.keymap.set('n', '<C-S-x>', '<cmd>!chmod +x %<CR>', { silent = true })
 
 -- RESIZE
 vim.keymap.set('n', '<C-a-l>', ':vertical resize -2<CR>')
@@ -73,9 +75,13 @@ vim.keymap.set('n', '<C-S-l>', ':vsp<CR>', { silent = true })
 vim.keymap.set('n', '<C-S-j>', ':sp<CR>', { silent = true })
 
 -- TERMINAL
-vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
-vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
-vim.keymap.set('t', '<A-S-i>', '<C-\\><C-n><CMD>lua require("FTerm").exit()<CR>')
+vim.keymap.set('n', '<A-i>', ':NeotermToggle<CR>', { silent = true })
+vim.keymap.set('i', '<A-i>', '<Esc>:NeotermToggle<CR>', { silent = true })
+vim.keymap.set('t', '<A-i>', '<C-\\><C-n>:NeotermToggle<CR>', { silent = true })
+vim.keymap.set('t', '<A-S-i>', '<C-\\><C-n>:NeotermExit<CR>', { silent = true })
+-- vim.keymap.set('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>')
+-- vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+-- vim.keymap.set('t', '<A-S-i>', '<C-\\><C-n><CMD>lua require("FTerm").exit()<CR>')
 vim.keymap.set('n', '<C-S-t>', ':vsp<CR>:terminal<CR>', { silent = true })
 
 -- LINES UP/DOWN
@@ -165,11 +171,11 @@ function _G.surround_visual(prefix, suffix)
 end
 
 -- Example of mapping to surround visually selected text with quotes using Alt-w
-vim.api.nvim_set_keymap('v', '<A-w>', [[:lua surround_visual('"', '"')<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<A-S-b>', [[:lua surround_visual('(', ')')<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<A-C-b>', [[:lua surround_visual('**', '**')<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<A-C-[>', [[:lua surround_visual('[', ']')<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<A-C-S-{>', [[:lua surround_visual('{', '}')<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-w>', [[:lua surround_visual('"', '"')<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-b>', [[:lua surround_visual('(', ')')<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-b>', [[:lua surround_visual('**', '**')<CR>]], { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('v', '<C-[>', [[:lua surround_visual('[', ']')<CR>]], { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('v', '<C-S-[>', [[:lua surround_visual('{', '}')<CR>]], { noremap = true, silent = true })
 
 -- Mapping for bold
 vim.keymap.set('n', '<C-b>', function()
@@ -248,6 +254,7 @@ end
 
 -- Keybinding for Ctrl+Alt+Down to duplicate the current line below
 vim.keymap.set('n', '<S-f>', duplicate_line_below, { noremap = true, silent = true })
+vim.keymap.set('v', '<S-f>', [[:t'>+0<CR>gv=gv]], { noremap = true, silent = true })
 
 -- Keybinding for Ctrl+Alt+Up to duplicate the current line above
 -- vim.keymap.set('n', '<C-A-Up>', duplicate_line_above, { noremap = true, silent = true })
