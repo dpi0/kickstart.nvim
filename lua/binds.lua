@@ -1,6 +1,8 @@
 -- NICE
 vim.keymap.set('n', 'E', '$')
 vim.keymap.set('n', 'B', '0')
+vim.keymap.set('n', '<C-z>', 'u', { noremap = true, silent = true })
+-- vim.keymap.set('i', '<C-z>', '<Esc>u', { noremap = true, silent = true })
 vim.keymap.set('n', 'U', ':redo<CR>', { noremap = true })
 vim.keymap.set('i', '<A-BS>', '<C-w>', { noremap = true, silent = true })
 vim.keymap.set('n', '<A-BS>', 'db', { noremap = true, silent = true })
@@ -53,7 +55,9 @@ vim.keymap.set('n', '<space>fb', ':Telescope file_browser path=%:p:h select_buff
 
 -- BUFFERS/TAB
 vim.keymap.set('n', '<Tab>', '<Cmd>BufferNext<CR>', { silent = true })
+vim.keymap.set('n', '<A-S-l>', '<Cmd>BufferNext<CR>', { silent = true })
 vim.keymap.set('n', '<S-Tab>', '<Cmd>BufferPrevious<CR>', { silent = true })
+vim.keymap.set('n', '<A-S-h>', '<Cmd>BufferPrevious<CR>', { silent = true })
 vim.keymap.set('n', '<C-w>', '<Cmd>BufferClose<CR>', { silent = true })
 -- vim.keymap.set('n', '<C-S-t>', '<Cmd>BufferRestore<CR>', { silent = true })
 vim.keymap.set('n', '<C-t>', ':enew<CR>', { silent = true })
@@ -183,9 +187,9 @@ vim.keymap.set('n', '<C-b>', function()
 end, { noremap = true, silent = true })
 
 -- mapping for highlighting
-vim.keymap.set('n', '<A-S-h>', function()
-  surround_word('{==', '==}')
-end, { noremap = true, silent = true })
+-- vim.keymap.set('n', '<A-S-h>', function()
+--   surround_word('{==', '==}')
+-- end, { noremap = true, silent = true })
 
 -- mapping for underline highlighting
 vim.keymap.set('n', '<A-S-u>', function()
@@ -223,7 +227,8 @@ vim.keymap.set('n', '<A-{>', function()
 end, { noremap = true, silent = true })
 
 -- WRITE FILENAME
-vim.keymap.set({ 'n', 'i' }, '<C-e>', function()
+-- Define the save_as function
+local function save_as()
   -- Get the current directory
   local current_dir = vim.fn.getcwd()
   -- Prompt the user to enter the filename with the absolute path, defaulting to the current directory
@@ -236,7 +241,11 @@ vim.keymap.set({ 'n', 'i' }, '<C-e>', function()
   else
     print 'Save aborted: no filename provided.'
   end
-end, { noremap = true, silent = true })
+end
+
+-- Set the keymap to call the save_as function
+vim.keymap.set({ 'n', 'i' }, '<C-e>', save_as, { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'i' }, '<C-S-s>', save_as, { noremap = true, silent = true })
 
 -- Function to duplicate the current line below
 local function duplicate_line_below()
